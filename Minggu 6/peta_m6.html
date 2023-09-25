@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lokasi Stadion di Yogyakarta</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.1/dist/leaflet.css" integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
+    <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js" integrity="sha256-NDI0K41gVbWqfkkaHj15IzU7PtMoelkzyKp8TOaFQ3s=" crossorigin=""></script>
+    <script src="jogja.js"></script>
+
+    <!--Measure Tools-->
+    <script src="leaflet-measure.js"></script>
+
+    <!-- Leaflet Control Geocoder -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
+
+    <style>
+      html,
+      body,
+      section {
+        position: relative;
+        height: 100%;
+        background-image: url("");
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      h1 {
+      }
+
+      #map {
+        width: 1500px;
+        height: 750px;
+        margin-top: 80px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top" style="background-color: #c08261">
+      <div class="container" style="margin-left: 20px">
+        <a class="navbar-brand" href="https://ugm.ac.id/id/">
+          <img src="ugm1new.png" alt="Bootstrap" width="30" height="30" />
+        </a>
+        <a class="navbar-brand" href="http://FiqriFahra.github.io/">Fiqri Fahra</a>
+        <a class="navbar-brand text-center" href="#" style="margin-left: 350px; font-size: 40px"><b>Peta Lokasi Stadion di DIY</b></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="http://FiqriFahra.github.io/" style="margin-left: 275px">Home <span class="sr-only">(current) </span></a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <button class="btn btn-outline-success my-2 my-sm-0">My Location</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <center>
+      <div id="map"></div>
+    </center>
+
+    <script>
+      var bgnIcon = L.icon({
+        iconUrl: "https://www.pngall.com/wp-content/uploads/9/Vector-Stadium-Transparent.png",
+        iconSize: [50, 50],
+        iconAnchor: [20, 50],
+        popupAnchor: [0, 0],
+      });
+
+      var kridosono = L.marker([-7.787731, 110.374056], { icon: bgnIcon }).bindPopup(
+          '<center><img src="https://jogya.com/wp-content/uploads/2017/11/stadion-kridosono-jogja.jpg" width="300px" height="200px" title="Stadion Kridosono" alt="Stadion Kridosono"></center><h3>Stadion Kridosono</h3>'
+        ),
+        pancasila = L.marker([-7.769363, 110.384748], { icon: bgnIcon }).bindPopup(
+          '<center><img src="https://ditmawa.ugm.ac.id/wp-content/uploads/sites/1212/2023/01/WhatsApp-Image-2023-01-17-at-10.10.13-AM-2.jpeg" width="300px" height="200px" title="Stadion Pancasila" alt="Stadion Pancasila"></center><h3>Stadion Pancasila</h3>'
+        ),
+        maguwoharjo = L.marker([-7.750629, 110.418164], { icon: bgnIcon }).bindPopup(
+          '<center><img src="https://cdn-cms.pgimgs.com/areainsider/2023/07/Alt-Text-Stadion-Maguwoharjo-Mini-San-Siro-Milan-Italia-ala-Yogyakarta.png" width="300px" height="200px" title="Stadion Maguwoharjo" alt="Stadion Maguwoharjo"></center><h3>Stadion Maguwoharjo</h3>'
+        ),
+        uny = L.marker([-7.77669, 110.38557], { icon: bgnIcon }).bindPopup(
+          '<center><img src="https://cdn-image.hipwee.com/wp-content/uploads/2018/05/hipwee-_MG_1548-640x427.jpg" width="300px" height="200px" title="Stadion UNY" alt="Stadion UNY"></center><h3>Stadion UNY</h3>'
+        ),
+        mandala = L.marker([-7.796071, 110.384271], { icon: bgnIcon }).bindPopup(
+          '<center><img src="https://cdn-cms.pgimgs.com/areainsider/2023/07/Alt-Text-Mengenal-Stadion-Mandala-Krida-Kebanggaan-Jogja-Lengkap-Biaya-Sewa-.png" width="300px" height="200px" title="Stadion Mandala Krida" alt="Stadion Mandala Krida"></center><h3>Stadion Mandala Krida</h3>'
+        ),
+        adisucipto = L.marker([-7.800351, 110.435848], { icon: bgnIcon }).bindPopup(
+          '<center><img src="https://pr1.nicelocal.id/PMJQ7qTGJwwLrLV-Lleo_A/630x384,q85/4px-BW84_n0QJGVPszge3NRBsKw-2VcOifrJIjPYFYkOtaCZxxXQ2YwB0D-RFJmeOiYRaxgkIA_Jp5p5VX0qn0lzE4CIe5P2OKuDlytYGxAtMf4SDkcTIA" width="300px" height="200px" title="Stadion Agustinus Adi Sucipto" alt="Stadion Agustinus Adi Sucipto"></center><h3>Stadion Agustinus Adi Sucipto</h3>'
+        ),
+        sultan = L.marker([-7.875346, 110.380294], { icon: bgnIcon }).bindPopup(
+          '<center><img src="data:image/jpeg;base64,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" width="300px" height="200px" title="Stadion Sultan Agung" alt="Stadion Sultan Agung"></center><h3>Stadion Sultan Agung</h3>'
+        );
+
+      var bgn = L.layerGroup([kridosono, pancasila, maguwoharjo, uny, mandala, adisucipto, sultan]);
+
+      var osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 20,
+        attribution: "© OpenStreetMap",
+      });
+
+      var osm2 = L.tileLayer("https://mt0.google.com/vt/lyrs=s&x={x}&y={y}&z={z}", {
+        maxZoom: 20,
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      });
+
+      var map = L.map("map", {
+        measureControl: true,
+        center: [-7.794074, 110.398421],
+        zoom: 14,
+        layers: [osm, bgn],
+      });
+
+      var baseMaps = {
+        Peta: osm,
+        Satelit: osm2,
+      };
+
+      var overlayMaps = {
+        Stadion: bgn,
+      };
+
+      var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+      var baseMaps = {
+        OpenStreetMap: osm,
+        "<span style='color: red'>OpenStreetMap.maps</span>": osm2,
+      };
+      L.geoJSON(jogjageojson, {
+        style: function (feature) {
+          switch (feature.properties.KABUPATEN) {
+            case "Gunung Kidul":
+              return { color: "#ff9900" };
+            case "Sleman":
+              return { color: "red" };
+            case "Bantul":
+              return { color: "blue" };
+            case "Yogyakarta":
+              return { color: "green" };
+            case "Kulon Progo":
+              return { color: "magenta" };
+          }
+        },
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup("Kecamatan adalah " + "<strong>" + feature.properties.KECAMATAN + "</strong>");
+        },
+      }).addTo(map);
+
+      L.Control.geocoder().addTo(map);
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.mi
+n.js"
+      integrity="sha384-
+ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
