@@ -114,24 +114,10 @@
         measureControl: true,
         center: [-7.794074, 110.398421],
         zoom: 14,
-        layers: [osm, bgn],
+        layers: [osm],
       });
 
-      var baseMaps = {
-        Peta: osm,
-        Satelit: osm2,
-      };
-
-      var overlayMaps = {
-        Stadion: bgn,
-      };
-
-      var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
-      var baseMaps = {
-        OpenStreetMap: osm,
-        "<span style='color: red'>OpenStreetMap.maps</span>": osm2,
-      };
-      L.geoJSON(jogjageojson, {
+      var jogja1 = L.geoJSON(jogjageojson, {
         style: function (feature) {
           switch (feature.properties.KABUPATEN) {
             case "Gunung Kidul":
@@ -150,6 +136,22 @@
           layer.bindPopup("Kecamatan adalah " + "<strong>" + feature.properties.KECAMATAN + "</strong>");
         },
       }).addTo(map);
+
+      var baseMaps = {
+        Peta: osm,
+        Satelit: osm2,
+      };
+
+      var overlayMaps = {
+        Stadion: bgn,
+        Yogyakarta: jogja1,
+      };
+
+      var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(map);
+      var baseMaps = {
+        OpenStreetMap: osm,
+        "<span style='color: red'>OpenStreetMap.maps</span>": osm2,
+      };
 
       L.Control.geocoder().addTo(map);
     </script>
