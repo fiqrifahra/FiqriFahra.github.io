@@ -9,6 +9,10 @@
     <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js" integrity="sha256-NDI0K41gVbWqfkkaHj15IzU7PtMoelkzyKp8TOaFQ3s=" crossorigin=""></script>
     <script src="jogja.js"></script>
 
+    <script src="bundle.js"></script>
+    <link rel="stylesheet" type="text/css" href="Leaflet.GraphicScale.min.css" />
+    <script src="Leaflet.GraphicScale.min.js"></script>
+
     <!--Measure Tools-->
     <script src="leaflet-measure.js"></script>
 
@@ -58,7 +62,7 @@
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
-            <button class="btn btn-outline-success my-2 my-sm-0">My Location</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" onclick="cari()">Lokasi saya</button>
           </form>
         </div>
       </div>
@@ -152,6 +156,41 @@
         OpenStreetMap: osm,
         "<span style='color: red'>OpenStreetMap.maps</span>": osm2,
       };
+
+      L.easyPrint({
+        title: "My awesome print button",
+        position: "topright",
+        sizeModes: ["A4Portrait", "A4Landscape"],
+      }).addTo(map);
+
+      var graphicScale = L.control
+        .graphicScale({
+          fill: "fill",
+          doubleLine: "true",
+          showSubunits: "true",
+        })
+        .addTo(map);
+
+      // ------------------------------------------------------------------
+      // ini latian hari 2 leaflet
+
+      function cari() {
+        alert("tombol ditekan!");
+        map.locate({ setView: true, maxZoom: 16 });
+
+        function onLocationFound(e) {
+          var radius = e.accuracy / 2;
+
+          L.marker(e.latlng)
+            .addTo(map)
+            .bindPopup("You are within " + radius + " meters from this point")
+            .openPopup();
+
+          L.circle(e.latlng, radius).addTo(map);
+        }
+
+        map.on("locationfound", onLocationFound);
+      }
 
       L.Control.geocoder().addTo(map);
     </script>
